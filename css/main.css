@@ -1808,11 +1808,15 @@ pre .javascript .function {
   border-bottom-color: #555;
   font-size: 13px;
 }
-.site-author-image {
-  border-radius: 80px;
-  -webkit-border-radius: 80px;
-  -moz-border-radius: 80px;
-  box-shadow: inset 0 -1px 0 #333 sf;
+.links-of-author a:before {
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 3px;
+  content: " ";
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #8bd4eb;
 }
 .links-of-blogroll {
   font-size: 13px;
@@ -1966,10 +1970,7 @@ pre .javascript .function {
   border: none;
 }
 .footer-inner {
-  text-align: left;
-}
-.ICP {
-  font-size: 12px;
+  text-align: center;
 }
 .with-love {
   display: inline-block;
@@ -2686,4 +2687,37 @@ embed {
 }
 .links-of-blogroll-inline .links-of-blogroll-item {
   display: inline-block;
+}
+.footer-inner {
+  text-align: left;
+}
+.ICP {
+  font-size: 12px;
+}
+.links-of-author {
+  margin-top: 20px;
+}
+.site-author-image {
+  border-radius: 80px;
+  -webkit-border-radius: 80px;
+  -moz-border-radius: 80px;
+  box-shadow: inset 0 -1px 0 #333 sf;
+}
+.links-of-author a {
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  border-bottom: 0px;
+  font-size: 13px;
+}
+.links-of-author a:before {
+  display: none;
+  vertical-align: middle;
+  margin-right: 0px;
+  content: " ";
+  width: 0px;
+  height: 0px;
+  border-radius: 50%;
+  background: #ff8c22;
 }
