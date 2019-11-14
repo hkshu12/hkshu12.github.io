@@ -94,18 +94,17 @@
 <meta name="keywords" content="OperatingSystem,Q&amp;A">
 <meta property="og:type" content="article">
 <meta property="og:title" content="操作系统问题归档">
-<meta property="og:url" content="https://hkshu12.github.io/2019/11/os-qa-list-1/index.html">
+<meta property="og:url" content="https://www.hydr3z.xyz/2019/11/操作系统Q&A/index.html">
 <meta property="og:site_name" content="近妖s">
 <meta property="og:description" content="操作系统部分问答题归档整理-Part 1">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://hkshu12.github.io/.io//GDT.png">
-<meta property="og:image" content="https://hkshu12.github.io/.io//11/os-qa-list-1/LDT.png">
-<meta property="og:image" content="https://hkshu12.github.io/.io//LDT.png">
-<meta property="og:updated_time" content="2019-11-14T08:19:59.110Z">
+<meta property="og:image" content="https://www.hydr3z.xyz/2019/11/操作系统Q&A/GDT.png">
+<meta property="og:image" content="https://www.hydr3z.xyz/2019/11/操作系统Q&A/LDT.png">
+<meta property="og:updated_time" content="2019-11-14T08:29:30.237Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="操作系统问题归档">
 <meta name="twitter:description" content="操作系统部分问答题归档整理-Part 1">
-<meta name="twitter:image" content="https://hkshu12.github.io/.io//GDT.png">
+<meta name="twitter:image" content="https://www.hydr3z.xyz/2019/11/操作系统Q&A/GDT.png">
 
 
 
@@ -288,7 +287,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://hkshu12.github.io/2019/11/os-qa-list-1/">
+    <link itemprop="mainEntityOfPage" href="https://www.hydr3z.xyz/2019/11/操作系统Q&A/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Karson">
@@ -416,16 +415,16 @@
 <li><p>如果合法且有权限，用描述符中的段首地址加上（1）中的偏移量找到物理地址。寻址结束。</p>
 </li>
 </ol>
-<p><img src="/.io//GDT.png" alt="GDT"></p>
+<img src="/2019/11/操作系统Q&A/GDT.png" title="GDT">
+
 <h2 id="7-请说明通过LDT查找物理地址的具体步骤。"><a href="#7-请说明通过LDT查找物理地址的具体步骤。" class="headerlink" title="7. 请说明通过LDT查找物理地址的具体步骤。"></a>7. 请说明通过LDT查找物理地址的具体步骤。</h2><ol>
 <li>给出段选择子（放在段选择寄存器中）+偏移量</li>
 <li>若选择了LDT方式，则从GDTR获取GDT首地址，用LDTR中的偏移量做偏移，拿到GDT中的描述符1</li>
 <li>从描述符1中获取LDT首地址，用段选择子中的13位做偏移，拿到LDT中的描述符2</li>
 <li>如果合法且有权限，用描述符2中的段首地址加上（1）中的偏移量找到物理地址。寻址结束。</li>
 </ol>
-<img src="/.io//11/os-qa-list-1/LDT.png">
+<img src="/2019/11/操作系统Q&A/LDT.png" title="LDT">
 
-<p><img src="/.io//LDT.png" alt="LDT"></p>
 <h2 id="8-根目录区大小一定么？扇区号是多少？为什么？"><a href="#8-根目录区大小一定么？扇区号是多少？为什么？" class="headerlink" title="8. 根目录区大小一定么？扇区号是多少？为什么？"></a>8. 根目录区大小一定么？扇区号是多少？为什么？</h2><p>不一定。FAT12中一般从第19扇区开始。引导扇区占1扇区，2个FAT表各占9扇区，故根目录区从19扇区开始。</p>
 <p>根目录区大小根据引导扇区中根目录区文件数的最大值<code>BPB_RootEntCnt</code>而定。</p>
 <h2 id="9-数据区第一个簇号是多少？为什么？"><a href="#9-数据区第一个簇号是多少？为什么？" class="headerlink" title="9. 数据区第一个簇号是多少？为什么？"></a>9. 数据区第一个簇号是多少？为什么？</h2><p>2号簇。0号和1号簇被系统保留并存储特殊标识内容。0号FAT表项通常用来存放分区所在的介质类型；1号FAT表项用来存储文件系统的肮脏标志，表明文件系统被非法卸载或者磁盘表面存在错误 。</p>
@@ -443,7 +442,7 @@
 <p><strong>第二步，符号解析与重定位。</strong>使用上一步收集到的所有信息，读取输入目标文件中段的数据、重定位信息，并且进行符号解析与重定位、调整代码中的地址等。</p>
 <h2 id="12-解释动态链接的过程。"><a href="#12-解释动态链接的过程。" class="headerlink" title="12. 解释动态链接的过程。"></a>12. 解释动态链接的过程。</h2><p>使用这种方式的程序并不在一开始就完成动态链接，而是直到真正调用动态库代码时，载入程序才计算(被调用的那部分)动态代码的逻辑地址。  </p>
 <p>关于静态链接和动态链接，参见：<a href="https://www.polarxiong.com/archives/静态链接与动态链接在链接过程和文件结构上的区别.html" target="_blank" rel="noopener">静态链接与动态链接在链接过程和文件结构上的区别</a></p>
-<h2 id="13-静态链接相关PPT中为什么使用ld链接⽽不是gcc"><a href="#13-静态链接相关PPT中为什么使用ld链接⽽不是gcc" class="headerlink" title="13. 静态链接相关PPT中为什么使用ld链接⽽不是gcc"></a>13. 静态链接相关PPT中为什么使用<code>ld</code>链接⽽不是<code>gcc</code></h2><p>因为没有依赖其他库，不需要<code>gcc</code>来告诉<code>ld</code>需要加入哪些依赖并调用<code>ld</code>，可直接调用<code>ld</code>。（我猜的）</p>
+<h2 id="13-静态链接相关PPT中为什么使用ld链接⽽不是gcc"><a href="#13-静态链接相关PPT中为什么使用ld链接⽽不是gcc" class="headerlink" title="13. 静态链接相关PPT中为什么使用ld链接⽽不是gcc"></a>13. 静态链接相关PPT中为什么使用<code>ld</code>链接⽽不是<code>gcc</code></h2><p>因为没有依赖其他库，不需要<code>gcc</code>来告诉<code>ld</code>需要加入哪些依赖并调用<code>ld</code>，可直接调用<code>ld</code>。</p>
 <p>在实际自己操作的时候用<code>ld</code>链接发生了报错，用<code>objdump -rd</code>命令查看<code>test.o</code>，发现<code>gcc</code>在编译过程中在里面加了一个函数<code>__stack_chk_fail</code>，查阅发现应该是<code>gcc</code>添加用于保护数组的(?)，在用<code>ld</code>命令链接时<code>ld</code>找不到该函数而出现问题，改用<code>gcc</code>后问题消除。</p>
 <h2 id="14-Linux下可执行文件的虚拟地址空间默认从哪里开始分配。"><a href="#14-Linux下可执行文件的虚拟地址空间默认从哪里开始分配。" class="headerlink" title="14. Linux下可执行文件的虚拟地址空间默认从哪里开始分配。"></a>14. Linux下可执行文件的虚拟地址空间默认从哪里开始分配。</h2><blockquote>
 <p>32位Linux： 0x08048000</p>
