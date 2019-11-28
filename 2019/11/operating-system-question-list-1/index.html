@@ -94,17 +94,17 @@
 <meta name="keywords" content="OperatingSystem,Q&amp;A">
 <meta property="og:type" content="article">
 <meta property="og:title" content="操作系统问题归档">
-<meta property="og:url" content="https://www.hydr3z.xyz/2019/11/操作系统Q&A/index.html">
+<meta property="og:url" content="https://www.hydr3z.xyz/2019/11/operating-system-question-list-1/index.html">
 <meta property="og:site_name" content="近妖s">
 <meta property="og:description" content="操作系统部分问答题归档整理-Part 1">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://www.hydr3z.xyz/2019/11/操作系统Q&A/GDT.png">
-<meta property="og:image" content="https://www.hydr3z.xyz/2019/11/操作系统Q&A/LDT.png">
+<meta property="og:image" content="https://www.hydr3z.xyz/2019/11/operating-system-question-list-1/GDT.png">
+<meta property="og:image" content="https://www.hydr3z.xyz/2019/11/operating-system-question-list-1/LDT.png">
 <meta property="og:updated_time" content="2019-11-14T08:29:30.237Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="操作系统问题归档">
 <meta name="twitter:description" content="操作系统部分问答题归档整理-Part 1">
-<meta name="twitter:image" content="https://www.hydr3z.xyz/2019/11/操作系统Q&A/GDT.png">
+<meta name="twitter:image" content="https://www.hydr3z.xyz/2019/11/operating-system-question-list-1/GDT.png">
 
 
 
@@ -295,7 +295,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://www.hydr3z.xyz/2019/11/操作系统Q&A/">
+    <link itemprop="mainEntityOfPage" href="https://www.hydr3z.xyz/2019/11/operating-system-question-list-1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Karson">
@@ -423,7 +423,7 @@
 <li><p>如果合法且有权限，用描述符中的段首地址加上（1）中的偏移量找到物理地址。寻址结束。</p>
 </li>
 </ol>
-<img src="/2019/11/操作系统Q&A/GDT.png" title="GDT">
+<img src="/2019/11/operating-system-question-list-1/GDT.png" title="GDT">
 
 <h2 id="7-请说明通过LDT查找物理地址的具体步骤。"><a href="#7-请说明通过LDT查找物理地址的具体步骤。" class="headerlink" title="7. 请说明通过LDT查找物理地址的具体步骤。"></a>7. 请说明通过LDT查找物理地址的具体步骤。</h2><ol>
 <li>给出段选择子（放在段选择寄存器中）+偏移量</li>
@@ -431,7 +431,7 @@
 <li>从描述符1中获取LDT首地址，用段选择子中的13位做偏移，拿到LDT中的描述符2</li>
 <li>如果合法且有权限，用描述符2中的段首地址加上（1）中的偏移量找到物理地址。寻址结束。</li>
 </ol>
-<img src="/2019/11/操作系统Q&A/LDT.png" title="LDT">
+<img src="/2019/11/operating-system-question-list-1/LDT.png" title="LDT">
 
 <h2 id="8-根目录区大小一定么？扇区号是多少？为什么？"><a href="#8-根目录区大小一定么？扇区号是多少？为什么？" class="headerlink" title="8. 根目录区大小一定么？扇区号是多少？为什么？"></a>8. 根目录区大小一定么？扇区号是多少？为什么？</h2><p>不一定。FAT12中一般从第19扇区开始。引导扇区占1扇区，2个FAT表各占9扇区，故根目录区从19扇区开始。</p>
 <p>根目录区大小根据引导扇区中根目录区文件数的最大值<code>BPB_RootEntCnt</code>而定。</p>
@@ -499,6 +499,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/11/operating-system-question-list-2/" rel="prev" title="操作系统问题归档">
+                操作系统问题归档 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -584,7 +588,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">4</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
