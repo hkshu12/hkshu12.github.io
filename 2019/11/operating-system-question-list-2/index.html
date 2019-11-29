@@ -101,7 +101,7 @@
 <meta property="og:image" content="https://www.hydr3z.xyz/2019/11/operating-system-question-list-2/中断描述符.png">
 <meta property="og:image" content="https://www.hydr3z.xyz/2019/11/operating-system-question-list-2/无特权级变换.png">
 <meta property="og:image" content="https://www.hydr3z.xyz/2019/11/operating-system-question-list-2/有特权级变换.png">
-<meta property="og:updated_time" content="2019-11-28T05:55:40.612Z">
+<meta property="og:updated_time" content="2019-11-29T05:30:40.516Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="操作系统问题归档">
 <meta name="twitter:description" content="操作系统部分问答题归档整理-Part 2">
@@ -440,7 +440,7 @@
 <h2 id="13-中断与异常的区别"><a href="#13-中断与异常的区别" class="headerlink" title="13. 中断与异常的区别?"></a>13. 中断与异常的区别?</h2><p>中断：由CPU以外的事件引起的中断，如I/O中断、时钟中断、控制台中断等。 </p>
 <p>异常：来自CPU的内部事件或程序执行中的事件引起的过程，如由于CPU本身故障、程序故障和请求系统服务的指令引起的中断等。   </p>
 <h2 id="14-实模式和保护模式下的中断处理差别"><a href="#14-实模式和保护模式下的中断处理差别" class="headerlink" title="14. 实模式和保护模式下的中断处理差别"></a>14. 实模式和保护模式下的中断处理差别</h2><p>实模式下查中断向量表，保护模式下查中断描述符表</p>
-<h2 id="15-如何识别键盘组合键-如-shift-a-是否还有其他解决方案"><a href="#15-如何识别键盘组合键-如-shift-a-是否还有其他解决方案" class="headerlink" title="15. 如何识别键盘组合键 (如 shift+a) 是否还有其他解决方案?"></a>15. 如何识别键盘组合键 (如 <code>shift+a</code>) 是否还有其他解决方案?</h2><p>《Orange’s》中的实现方案：声明变量<code>SHIFT</code>来记录<code>shift</code>键的状态，当其被按下时，变量值变为<code>TRUE</code>，释放时，变量值为<code>FALSE</code>。如果当<code>shift</code>键被按下还未释放时又按下<code>a</code>键，则<code>if(SHIFT)</code>成立，于是<code>column</code>值改变，<code>keyrow[column]</code>得到的值是<code>shit+a</code>对应的<code>A</code>。</p>
+<h2 id="15-如何识别键盘组合键-如-shift-a-是否还有其他解决方案"><a href="#15-如何识别键盘组合键-如-shift-a-是否还有其他解决方案" class="headerlink" title="15. 如何识别键盘组合键 (如 shift+a) 是否还有其他解决方案?"></a>15. 如何识别键盘组合键 (如 <code>shift+a</code>) 是否还有其他解决方案?</h2><p>《Orange’s》中的实现方案：声明变量<code>SHIFT</code>来记录<code>shift</code>键的状态，当其被按下时，变量值变为<code>TRUE</code>，释放时，变量值为<code>FALSE</code>。如果当<code>shift</code>键被按下还未释放时又按下<code>a</code>键，则<code>if(SHIFT)</code>成立，于是<code>column</code>值改变，<code>keyrow[column]</code>得到的值是<code>shift+a</code>对应的<code>A</code>。</p>
 <h2 id="16-IDT-是什么，有什么作用"><a href="#16-IDT-是什么，有什么作用" class="headerlink" title="16. IDT 是什么，有什么作用?"></a>16. IDT 是什么，有什么作用?</h2><p>中断描述符表，根据中断类型码查找中断描述符，从而调用中断服务程序。</p>
 <h2 id="17-IDT-中有几种描述符"><a href="#17-IDT-中有几种描述符" class="headerlink" title="17. IDT 中有几种描述符?"></a>17. IDT 中有几种描述符?</h2><p>3种，中断门、任务门和陷阱门。</p>
 <h2 id="18-异常的分类"><a href="#18-异常的分类" class="headerlink" title="18. 异常的分类?"></a>18. 异常的分类?</h2><ul>
