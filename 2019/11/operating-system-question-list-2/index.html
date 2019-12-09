@@ -101,7 +101,7 @@
 <meta property="og:image" content="https://www.hydr3z.xyz/2019/11/operating-system-question-list-2/中断描述符.png">
 <meta property="og:image" content="https://www.hydr3z.xyz/2019/11/operating-system-question-list-2/无特权级变换.png">
 <meta property="og:image" content="https://www.hydr3z.xyz/2019/11/operating-system-question-list-2/有特权级变换.png">
-<meta property="og:updated_time" content="2019-12-09T02:11:15.399Z">
+<meta property="og:updated_time" content="2019-12-09T02:16:26.606Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="操作系统问题归档">
 <meta name="twitter:description" content="操作系统部分问答题归档整理-Part 2">
@@ -483,7 +483,7 @@
 <p>中断或异常被处理完后，相应的处理程序必须产生一条<code>iret</code>指令，把控制权转交给被中断的进程，这将迫使控制单元：</p>
 <ol>
 <li>用保存在栈中的值装载<code>cs</code>、<code>eip</code>或<code>eflags</code>寄存器。如果一个硬件出错码曾被压入栈中，并且在<code>eip</code>内容的上面，那么，执行<code>iret</code>指令前必须先弹出这个硬件出错码。</li>
-<li>检查处理程序的``CPL<code>是否等于</code>cs<code>中最低两位的值（这意味着被中断的进程与处理程序运行在同一特权级）。如果是，</code>iret` 终止执行；否则，转入下一步。</li>
+<li>检查处理程序的<code>CPL</code>是否等于<code>cs</code>中最低两位的值（这意味着被中断的进程与处理程序运行在同一特权级）。如果是，<code>iret</code> 终止执行；否则，转入下一步。</li>
 <li>从栈中装载<code>ss</code>和<code>esp</code>寄存器，因此，返回到与旧特权级相关的栈。</li>
 <li>检查<code>ds</code>、<code>es</code>、<code>fs</code>及<code>gs</code>段寄存器的内容，如果其中一个寄存器包含的选择符是一个段描述符，并且其DPL值小于CPL，那么，清空相应的段寄存器。控制单元这么做是为了禁止用户态的程序（CPL=3）利用内核以前所用的段寄存器（DPL=0）。如果不清这些寄存器，怀有恶意的用户态程序就可能利用它们来访问内核地址空间。</li>
 </ol>
