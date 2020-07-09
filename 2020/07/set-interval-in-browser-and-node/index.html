@@ -102,7 +102,7 @@
 <meta property="og:image" content="https://www.hydr3z.xyz/2020/07/set-interval-in-browser-and-node/浏览器测试结果.png">
 <meta property="og:image" content="https://www.hydr3z.xyz/2020/07/set-interval-in-browser-and-node/node时间代价.png">
 <meta property="og:image" content="https://www.hydr3z.xyz/2020/07/set-interval-in-browser-and-node/浏览器时间代价.png">
-<meta property="og:updated_time" content="2020-07-09T17:55:18.359Z">
+<meta property="og:updated_time" content="2020-07-09T18:18:16.829Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="setInterval在node和浏览器中的表现">
 <meta name="twitter:description" content="之前面试的时候被问到setInterval(fn, 0)的在浏览器上实际表现的间隔会是多少，当时凭印象和直觉回答应该是4、5毫秒。后来也一直没有亲自尝试过，今天记录一下node和浏览器端分别的测试结果。">
@@ -386,7 +386,7 @@
       
 
       
-        <p>之前面试的时候被问到<code>setInterval(fn, 0)</code>的在浏览器上实际表现的间隔会是多少，当时凭印象和直觉回答应该是4、5毫秒。后来也一直没有亲自尝试过，今天记录一下node和浏览器端分别的测试结果。</p>
+        <p>之前面试的时候被问到<code>setInterval(fn, 0)</code>的在浏览器上实际表现的间隔会是多少，当时凭印象和直觉回答应该是4、5毫秒。后来也一直没有亲自尝试过，今天记录一下<code>node</code>和浏览器端分别的测试结果。</p>
 <a id="more"></a>
 
 <h2 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h2><p><code>node v12.16.1</code> <code>Microsoft Edge 83.0.478.61</code>（没有准备很多不同的浏览器环境）</p>
@@ -421,7 +421,7 @@
 <p>除了以上原因之外，还有其它原因。事实上，由于<code>Javascript</code>是单线程并通过<code>EventLoop</code>来实现异步操作，它的定时器并不准确，不能保证函数准时执行。</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> start = <span class="keyword">new</span> <span class="built_in">Date</span>().getTime();</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"1"</span>);</span><br><span class="line"></span><br><span class="line">setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> <span class="built_in">console</span>.log(<span class="string">"half"</span>), <span class="number">1000</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> (<span class="keyword">new</span> <span class="built_in">Date</span>().getTime() - start &lt; <span class="number">3000</span>) &#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="number">2</span>);</span><br></pre></td></tr></table></figure>
 
-<p>了解<code>Javascript</code>的人都能轻松说出上述代码的输出顺序是<code>1``2``half</code>而非<code>1``half``2</code>，定时1秒后的任务实际在3秒后才得以执行，就是因为<code>Javascript</code>的事件循环机制，具体不再详述。</p>
+<p>了解<code>Javascript</code>的人都能轻松说出上述代码的输出顺序是<code>1</code> <code>2</code> <code>half</code>而非<code>1</code> <code>half</code> <code>2</code>，定时1秒后的任务实际在3秒后才得以执行，就是因为<code>Javascript</code>的事件循环机制，具体不再详述。</p>
 <h2 id="相关资料"><a href="#相关资料" class="headerlink" title="相关资料"></a>相关资料</h2><ol>
 <li><a href="https://nodejs.org/docs/latest-v12.x/api/timers.html#timers_setinterval_callback_delay_args" target="_blank" rel="noopener">nodejs文档中对setInterval的描述</a></li>
 <li><a href="https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/setInterval" target="_blank" rel="noopener">MDN对于setInterval的描述</a></li>
