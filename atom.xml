@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://www.hydr3z.xyz/"/>
-  <updated>2020-01-30T06:59:59.705Z</updated>
+  <updated>2020-07-09T17:55:18.359Z</updated>
   <id>https://www.hydr3z.xyz/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>setInterval在node和浏览器中的表现</title>
+    <link href="https://www.hydr3z.xyz/2020/07/set-interval-in-browser-and-node/"/>
+    <id>https://www.hydr3z.xyz/2020/07/set-interval-in-browser-and-node/</id>
+    <published>2020-07-09T15:59:56.000Z</published>
+    <updated>2020-07-09T17:55:18.359Z</updated>
+    
+    <content type="html"><![CDATA[<p>之前面试的时候被问到<code>setInterval(fn, 0)</code>的在浏览器上实际表现的间隔会是多少，当时凭印象和直觉回答应该是4、5毫秒。后来也一直没有亲自尝试过，今天记录一下node和浏览器端分别的测试结果。</p><a id="more"></a><h2 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h2><p><code>node v12.16.1</code> <code>Microsoft Edge 83.0.478.61</code>（没有准备很多不同的浏览器环境）</p><h2 id="测试代码"><a href="#测试代码" class="headerlink" title="测试代码"></a>测试代码</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">printTimestamp</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="keyword">new</span> <span class="built_in">Date</span>().getTime());</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">setInterval(printTimestamp, <span class="number">0</span>);</span><br></pre></td></tr></table></figure><h2 id="node测试结果"><a href="#node测试结果" class="headerlink" title="node测试结果"></a><code>node</code>测试结果</h2><img src="/2020/07/set-interval-in-browser-and-node/node测试结果.png" title="node测试结果"><p>可以看到，<code>node</code>每次输出的时间间隔约为15毫秒。</p><h2 id="Microsoft-Edge测试结果"><a href="#Microsoft-Edge测试结果" class="headerlink" title="Microsoft Edge测试结果"></a><code>Microsoft Edge</code>测试结果</h2><img src="/2020/07/set-interval-in-browser-and-node/浏览器测试结果.png" title="浏览器测试结果"><p>可以看到，浏览器控制台每次输出的时间间隔约为4毫秒。</p><h2 id="More…"><a href="#More…" class="headerlink" title="More…"></a>More…</h2><p>如果忽略实例化对象以及相关操作的时间代价，那么上面的测试结果即为最终结果。</p><p>如果需要考虑相关操作的时间代价，我在浏览器和<code>node</code>分别输出了5次当前时间。</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="keyword">new</span> <span class="built_in">Date</span>().getTime());</span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">new</span> <span class="built_in">Date</span>().getTime());</span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">new</span> <span class="built_in">Date</span>().getTime());</span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">new</span> <span class="built_in">Date</span>().getTime());</span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">new</span> <span class="built_in">Date</span>().getTime());</span><br></pre></td></tr></table></figure><p>结果分别如下：</p><img src="/2020/07/set-interval-in-browser-and-node/node时间代价.png" title="node时间代价"><img src="/2020/07/set-interval-in-browser-and-node/浏览器时间代价.png" title="浏览器时间代价"><h2 id="一点发现"><a href="#一点发现" class="headerlink" title="一点发现"></a>一点发现</h2><p>在查阅资料时，发现很多人提到了4ms这个时间，认为<code>setTimeout(fn,0)</code>或<code>setTimeout(fn,0)</code>的<code>delay</code>会被设置为4ms，这和上面的实验结果明显是不符合的，浏览器端的测试中出现过相邻两次输出的时间戳差为2、3。</p><p>我在所有的官方文档中也没有看到类似的说法，只有<code>nodejs</code>文档中有提到关于<code>delay</code>取值的问题：</p><blockquote><p>When delay is larger than 2147483647 or less than 1, the delay will be set to 1. Non-integer delays are truncated to an integer.</p></blockquote><p>提到4ms这个值的，是在MDN关于<code>setInterval</code>的<code>Delay restrictions</code>中（参见相关资料《MDN对于setInterval的描述》），</p><blockquote><p>Attempts to specify a value less than 4 ms in deeply-nested calls to <code>setInterval()</code> will be pinned to 4 ms.</p></blockquote><p>出于性能考虑，深层嵌套的调用中小于4ms的<code>delay</code>会被固定为4ms。</p><p>还有一些导致实际延时比设置值长的原因，参见相关资料中的《MDN: Reasons for delays longer than specified》。</p><p>除了以上原因之外，还有其它原因。事实上，由于<code>Javascript</code>是单线程并通过<code>EventLoop</code>来实现异步操作，它的定时器并不准确，不能保证函数准时执行。</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> start = <span class="keyword">new</span> <span class="built_in">Date</span>().getTime();</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"1"</span>);</span><br><span class="line"></span><br><span class="line">setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> <span class="built_in">console</span>.log(<span class="string">"half"</span>), <span class="number">1000</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> (<span class="keyword">new</span> <span class="built_in">Date</span>().getTime() - start &lt; <span class="number">3000</span>) &#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="number">2</span>);</span><br></pre></td></tr></table></figure><p>了解<code>Javascript</code>的人都能轻松说出上述代码的输出顺序是<code>1``2``half</code>而非<code>1``half``2</code>，定时1秒后的任务实际在3秒后才得以执行，就是因为<code>Javascript</code>的事件循环机制，具体不再详述。</p><h2 id="相关资料"><a href="#相关资料" class="headerlink" title="相关资料"></a>相关资料</h2><ol><li><a href="https://nodejs.org/docs/latest-v12.x/api/timers.html#timers_setinterval_callback_delay_args" target="_blank" rel="noopener">nodejs文档中对setInterval的描述</a></li><li><a href="https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/setInterval" target="_blank" rel="noopener">MDN对于setInterval的描述</a></li><li><a href="https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/setTimeout#Reasons_for_delays_longer_than_specified" target="_blank" rel="noopener">MDN: Reasons for delays longer than specified</a></li></ol>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;之前面试的时候被问到&lt;code&gt;setInterval(fn, 0)&lt;/code&gt;的在浏览器上实际表现的间隔会是多少，当时凭印象和直觉回答应该是4、5毫秒。后来也一直没有亲自尝试过，今天记录一下node和浏览器端分别的测试结果。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Frontend" scheme="https://www.hydr3z.xyz/categories/Frontend/"/>
+    
+    
+      <category term="Javascript" scheme="https://www.hydr3z.xyz/tags/Javascript/"/>
+    
+  </entry>
   
   <entry>
     <title>多级路由组网实践</title>
